@@ -1,5 +1,6 @@
 ﻿#include <iostream>
-
+#include <Windows.h>
+#include "BasePolice.h"
 
 int main()
 {

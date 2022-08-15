@@ -2,7 +2,7 @@
 #include"Data.h"
 #include<initializer_list>
 #include<cassert>
-#include"../Library/Func.h"
+#include"Func.h"
 
 template<class T>
 class List

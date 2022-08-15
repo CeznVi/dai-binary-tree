@@ -130,8 +130,10 @@
     <ClCompile Include="source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasePolice.h" />
     <ClInclude Include="BTree.h" />
     <ClInclude Include="Data.h" />
+    <ClInclude Include="Func.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Menu.h" />
   </ItemGroup>
