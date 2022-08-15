@@ -1,0 +1,48 @@
+# Игнор тхт и таблиц либры
+*.ods
+*.txt
+
+# Игнор папки с заданием
+task/
+*.pdf
+
+### C++ ###
+# Prerequisites
+*.d
+
+# generated directories
+bin/
+obj/
+.vs/
+x64/
+debug/
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
