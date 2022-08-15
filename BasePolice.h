@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <string>
 #include"BTree.h"
 #include"List.h"
@@ -110,8 +110,8 @@ void BasePolice::menu()
 	while (true)
 	{
 		system("cls");
-		int c = Menu::select_vertical({ "Add protocol", 
-										"Print all", 
+		int c = Menu::select_vertical({ "Додати протокол", 
+										"Роздрукувати все", 
 										"Print Num TZ",
 										"Print diapazon",
 										"Set pay",
