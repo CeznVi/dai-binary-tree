@@ -40,13 +40,13 @@ public:
 	void print(char t = ' ') const;
 	void print_reverse(char t = ' ') const;
 
-	List<T> operator+(const List<T>& l);
-	List<T> operator*(const List<T>& l);
-	void operator+=(const List<T>& l);
-	void operator*=(const List<T>& l);
+	//List<T> operator+(const List<T>& l);
+	//List<T> operator*(const List<T>& l);
+	//void operator+=(const List<T>& l);
+	//void operator*=(const List<T>& l);
 
-	bool operator==(const List<T>& l);
-	bool operator!=(const List<T>& l);
+	//bool operator==(const List<T>& l);
+	//bool operator!=(const List<T>& l);
 
 	void sort(bool(*method)(T, T) = asc);
 	void reverse();

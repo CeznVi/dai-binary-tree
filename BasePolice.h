@@ -106,7 +106,7 @@ void BasePolice::save()
 
 	//while ()
 	//{
-
+	
 	//}
 
 	fclose(file);
