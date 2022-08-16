@@ -29,7 +29,7 @@ int Protocol::count = 1;
 ostream& operator<<(ostream& out, const Protocol* p)
 {
 	out << p->id << " " << p->numTZ << " " << p->data
-		<< " " << p->text << " " << p->sum << ((p->pay) ? "Pay" : "No pay") << endl;
+		<< " " << p->text << " " << p->sum << ((p->pay) ? "Сплачено" : "Несплачено") << endl;
 	return out;
 }
 
@@ -95,6 +95,21 @@ void BasePolice::printDiap()
 
 void BasePolice::save()
 {
+	FILE* file;
+	fopen_s(&file, "db.txt", "w");
+
+	if (!file)
+	{
+		std::cerr << "Помилка збереження файлу...";
+		exit(1);
+	}
+
+	//while ()
+	//{
+
+	//}
+
+	fclose(file);
 }
 
 void BasePolice::load()
@@ -111,11 +126,11 @@ void BasePolice::menu()
 	{
 		system("cls");
 		int c = Menu::select_vertical({ "Додати протокол", 
-										"Роздрукувати все", 
-										"Print Num TZ",
-										"Print diapazon",
-										"Set pay",
-										"Exit"}, 
+										"Роздрукувати базу", 
+										"Роздрукувати данні за номером",
+										"Роздрукувати діапазон номерів",
+										"Змінити статус оплати",
+										"Вихід"}, 
 										HorizontalAlignment::Center, 5);
 		switch (c)
 		{

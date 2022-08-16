@@ -1,10 +1,10 @@
 # Игнор тхт и таблиц либры
 *.ods
-*.txt
+#*.txt
 
 # Игнор папки с заданием
-task/
-*.pdf
+#task/
+#*.pdf
 
 ### C++ ###
 # Prerequisites
