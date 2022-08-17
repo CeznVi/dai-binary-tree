@@ -22,11 +22,18 @@ public:
 	friend ostream& operator<<(ostream& out, const Protocol* p);
 	friend istream& operator>>(istream& in, Protocol* p);
 
+	//Гетери данних
 	string getNumTZ() { return numTZ; }
 	string getData() { return data; }
 	string getText() { return text; }
 	int getSum() { return sum; }
 	bool getPay() { return pay; }
+	//Сетери данних
+	void setNumTZ(string num) { numTZ = num; }
+	void setData(string d) { data = d; }
+	void setText(string t) { text = t; }
+	void setSum(int s) { sum = s; }
+	void setPay(bool p) { pay = p; }
 
 	void save();
 
@@ -43,10 +50,10 @@ ostream& operator<<(ostream& out, const Protocol* p)
 
 istream& operator>>(istream& in, Protocol* p)
 {
-	cout << "Num TZ: "; getline(in, p->numTZ);
-	cout << "Data  : "; getline(in, p->data);
-	cout << "Text  : "; getline(in, p->text);
-	cout << "Summa : "; cin >> p->sum;
+	cout << "Номер транспортного засобу : "; getline(in, p->numTZ);
+	cout << "Дата правопорушення : "; getline(in, p->data);
+	cout << "Правопорушення : "; getline(in, p->text);
+	cout << "Сумма штрафу : "; cin >> p->sum;
 	in.ignore();
 	return in;
 }
@@ -62,16 +69,13 @@ void Protocol::save()
 		exit(1);
     }
 
-	fout << id << "\n";
 	fout << numTZ << "\n";
 	fout << data << "\n";
 	fout << text << "\n";
 	fout << sum << "\n";
-	fout << pay << "\n\n";
+	fout << pay << "\n";
 	fout.close();
 }
-
-
 
 class BasePolice
 {
@@ -92,7 +96,7 @@ public:
 void BasePolice::addProtocol()
 {
 	system("cls");
-	cout << "ADD PROTOCOL" << endl;
+	cout << "Додавання протоколу" << endl;
 	cout << "---------------------" << endl;
 	Protocol* prot = new Protocol;
 	cin >> prot;
@@ -118,7 +122,6 @@ void BasePolice::printAll()
 
 void BasePolice::printTZ()
 {
-	save(); //видалити
 	
 }
 
@@ -143,12 +146,67 @@ void BasePolice::save()
 
 void BasePolice::load()
 {
+	const int size = 80;
+
 	system("cls");
 	cout << "Завантаження бази данних із файлу\n";
-	Sleep(1000);
+	Sleep(500);
 
+	ifstream fin;
+	fin.open("Protocol_DB.txt", std::ios::in);
 
+	if (!fin)
+	{
+		std::cerr << "Помилка читання файлу...";
+		exit(1);
+	}
 
+	if (fin.is_open())
+	{
+		while (fin)
+		{
+			char* temp = new char[size];
+			Protocol* prot = new Protocol;
+			int num{};
+
+			fin.getline(temp, size);
+			
+			//невеличкий "костиль" для запобігання додавання пустого протоколу
+			if (strlen(temp) == 0)
+				break;
+
+			prot->setNumTZ(temp);
+
+			fin.getline(temp, size);
+			prot->setData(temp);
+
+			fin.getline(temp, size);
+			prot->setText(temp);
+
+			fin.getline(temp, size);
+			num = atoi(temp);
+			prot->setSum(num);
+
+			fin.getline(temp, size);
+			num = atoi(temp);
+			prot->setPay(num);
+						
+			delete[] temp;
+
+			List<Protocol*>* list = base.getValue(prot->getNumTZ());
+			if (!list)
+			{
+				List<Protocol*> newList;
+				newList.push_back(prot);
+				base.rpush(prot->getNumTZ(), newList);
+			}
+			else
+				list->push_back(prot);
+		}
+	}
+	//system("pause");
+	
+	fin.close();
 }
 
 void BasePolice::setPay()
@@ -157,24 +215,18 @@ void BasePolice::setPay()
 
 void BasePolice::menu()
 {
+	load();
 	while (true)
 	{
 		system("cls");
-		//int c = Menu::select_vertical({ "Додати протокол", 
-		//								"Роздрукувати базу", 
-		//								"Роздрукувати данні за номером",
-		//								"Роздрукувати діапазон номерів",
-		//								"Змінити статус оплати",
-		//								"Вихід"}, 
-		//								HorizontalAlignment::Center, 5);
-		int c = Menu::select_vertical({ "Додати протокол",
-								"Роздрукувати базу",
-								"Роздрукувати данні за номером",
-								"Роздрукувати діапазон номерів",
-								"Змінити статус оплати",
-								"Вихід", 
-								"Завантажити базу з файлу"},
-			HorizontalAlignment::Center, 5);
+		int c = Menu::select_vertical({ "Додати протокол", 
+										"Роздрукувати базу", 
+										"Роздрукувати данні за номером",
+										"Роздрукувати діапазон номерів",
+										"Змінити статус оплати",
+										"Вихід"}, 
+										HorizontalAlignment::Center, 5);
+
 		switch (c)
 		{
 		case 0: addProtocol(); break;
@@ -183,7 +235,6 @@ void BasePolice::menu()
 		case 3: printDiap(); break;
 		case 4: setPay(); break;
 		case 5: save(); exit(0);
-		case 6: load(); break;    //ВИДАЛИТИ
 		default:
 			break;
 		}
