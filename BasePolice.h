@@ -122,7 +122,16 @@ void BasePolice::printAll()
 
 void BasePolice::printTZ()
 {
-	
+	string numberTZ;
+
+	system("cls");
+	cout << "Роздрукувати данні за номером" << '\n';
+	cout << "---------------------" << '\n';
+	cout << "Введіть номер транспортного засобу" << '\n';
+	cin >> numberTZ;
+	//base.print(numberTZ);
+
+
 }
 
 void BasePolice::printDiap()
