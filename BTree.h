@@ -6,7 +6,7 @@ class BTreeNode
 public:
 	TKey key;
 	TVal value;
-	BTreeNode* left  = nullptr;
+	BTreeNode* left = nullptr;
 	BTreeNode* right = nullptr;
 
 	BTreeNode(TKey key, TVal val) : key(key), value(val) {}
@@ -18,6 +18,17 @@ public:
 		value.print();
 		if (right != nullptr) right->print();
 	}
+
+	void save()
+	{
+		if (left != nullptr) left->save();
+
+		value.save();
+
+		if (right != nullptr) right->save();
+	}
+
+
 
 	void del()
 	{
@@ -47,10 +58,15 @@ public:
 	~BTree();
 	bool push(TKey key, TVal val);
 	void print();
+	void save();
 	bool isEmpty();
 	TVal* getValue(const TKey& key);
 	void clear();
 	BTreeNode<TKey, TVal>* rpush(TKey key, TVal val);
+
+
+
+
 };
 
 template<class TKey, class TVal>
@@ -108,6 +124,12 @@ void BTree<TKey, TVal>::print()
 }
 
 template<class TKey, class TVal>
+void BTree<TKey, TVal>::save()
+{
+	if (root) root->save();
+}
+
+template<class TKey, class TVal>
 bool BTree<TKey, TVal>::isEmpty()
 {
 	return root == nullptr;
@@ -133,6 +155,7 @@ BTreeNode<TKey, TVal>* BTree<TKey, TVal>::rpush(TKey key, TVal val)
 {
 	return push_r(key, val, root);
 }
+
 
 template<class TKey, class TVal>
 BTreeNode<TKey, TVal>* BTree<TKey, TVal>::push_r(TKey key, TVal val, BTreeNode<TKey, TVal>*& node)

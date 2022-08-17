@@ -40,16 +40,10 @@ public:
 	void print(char t = ' ') const;
 	void print_reverse(char t = ' ') const;
 
-	//List<T> operator+(const List<T>& l);
-	//List<T> operator*(const List<T>& l);
-	//void operator+=(const List<T>& l);
-	//void operator*=(const List<T>& l);
-
-	//bool operator==(const List<T>& l);
-	//bool operator!=(const List<T>& l);
-
 	void sort(bool(*method)(T, T) = asc);
 	void reverse();
+
+	void save() const;
 
 };
 
@@ -260,6 +254,18 @@ void List<T>::print(char t) const
 	while (temp)
 	{
 		cout << temp->value << t;
+		temp = temp->next;
+	}
+	cout << endl;
+}
+
+template<class T>
+void List<T>::save() const
+{
+	Data<T>* temp = first;
+	while (temp)
+	{
+		temp->value->save();
 		temp = temp->next;
 	}
 	cout << endl;
