@@ -267,7 +267,7 @@ void List<T>::print() const
 		cout << temp->value;
 		temp = temp->next;
 	}
-	cout << endl;
+	cout << '\n';
 }
 
 template<class T>

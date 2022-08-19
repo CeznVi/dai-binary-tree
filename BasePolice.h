@@ -60,7 +60,7 @@ ostream& operator<<(ostream& out, const Protocol* p)
 
 istream& operator>>(istream& in, Protocol* p)
 {
-	in.ignore();
+	//in.ignore();
 	cout << "Номер транспортного засобу : "; getline(in, p->numTZ);
 	cout << "Дата правопорушення : "; getline(in, p->data);
 	cout << "Правопорушення : "; getline(in, p->text);
@@ -127,7 +127,6 @@ void BasePolice::addProtocol()
 void BasePolice::printAll()
 {
 	system("cls");
-
 	base.print();
 	system("pause");
 }
@@ -155,9 +154,29 @@ void BasePolice::printTZ()
 
 void BasePolice::printDiap()
 {
+	string numberTZ1;
+	string numberTZ2;
+
+	system("cls");
+	cout << "Роздрукувати данні за діапазоном номерів" << '\n';
+	cout << "---------------------" << '\n';
+
+	cout << "Введіть номер транспортного засобу початку діапазону" << '\n';
+	getline(cin, numberTZ1);
+	cout << "Введіть номер транспортного засобу кінця діапазону" << '\n';
+	getline(cin, numberTZ2);
+
+	List<Protocol*>* list1 = base.getValue(numberTZ1);
+	List<Protocol*>* list2 = base.getValue(numberTZ2);
+
+	if (list1 == nullptr || list2 == nullptr)
+		cout << "Вказано невірні діапазони транспортних засобів" << '\n';
+	
+	cout << "\n\nРезультат пошуку:\n";
+	base.printDiap(numberTZ1, numberTZ2);
 
 
-
+	system("pause");
 }
 
 void BasePolice::save()

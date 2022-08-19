@@ -19,6 +19,16 @@ public:
 		if (right != nullptr) right->print();
 	}
 
+	void printDiap(const TKey key, const TKey key1)
+	{
+		if (left != nullptr) left->printDiap(key, key1);
+
+		if (this->key >= key && this->key <= key1)
+			value.print();
+
+		if (right != nullptr) right->printDiap(key, key1);
+	}
+
 	void save()
 	{
 		if (left != nullptr) left->save();
@@ -62,6 +72,7 @@ public:
 	TVal* getValue(const TKey& key);
 	void clear();
 	BTreeNode<TKey, TVal>* rpush(TKey key, TVal val);
+	void printDiap(const TKey key, const TKey key1) const;
 
 };
 
@@ -150,6 +161,12 @@ template<class TKey, class TVal>
 BTreeNode<TKey, TVal>* BTree<TKey, TVal>::rpush(TKey key, TVal val)
 {
 	return push_r(key, val, root);
+}
+
+template<class TKey, class TVal>
+void BTree<TKey, TVal>::printDiap(TKey key, TKey key1) const
+{
+	if (root) root->printDiap(key, key1);
 }
 
 template<class TKey, class TVal>
