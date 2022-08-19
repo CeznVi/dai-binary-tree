@@ -42,6 +42,7 @@ public:
 		if (key > this->key && right != nullptr) return right->getValue(key);
 		return nullptr;
 	}
+
 };
 
 
@@ -56,7 +57,6 @@ public:
 	~BTree();
 	bool push(TKey key, TVal val);
 	void print();
-	void print(TKey);
 	void save();
 	bool isEmpty();
 	TVal* getValue(const TKey& key);

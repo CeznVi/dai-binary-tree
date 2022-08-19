@@ -37,14 +37,13 @@ public:
 	size_t length() const;
 	bool isEmpty() const;
 	void clear();
-	void print(char t = ' ') const;
-	void print_reverse(char t = ' ') const;
+	void print() const;
+	void print_reverse() const;
 
 	void sort(bool(*method)(T, T) = asc);
 	void reverse();
 
 	void save() const;
-
 };
 
 template<class T>
@@ -234,6 +233,18 @@ T& List<T>::operator[](size_t ind)
 }
 
 template<class T>
+size_t List<T>::length() const
+{
+	return size;
+}
+
+template<class T>
+bool List<T>::isEmpty() const
+{
+	return size == 0;
+}
+
+template<class T>
 void List<T>::clear()
 {
 	Data<T>* temp = first;
@@ -248,12 +259,12 @@ void List<T>::clear()
 }
 
 template<class T>
-void List<T>::print(char t) const
+void List<T>::print() const
 {
 	Data<T>* temp = first;
 	while (temp)
 	{
-		cout << temp->value << t;
+		cout << temp->value;
 		temp = temp->next;
 	}
 	cout << endl;
@@ -270,3 +281,4 @@ void List<T>::save() const
 	}
 	cout << endl;
 }
+

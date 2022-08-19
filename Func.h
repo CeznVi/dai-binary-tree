@@ -71,3 +71,13 @@ bool desc(T a, T b)
 {
 	return a < b;
 }
+
+bool isRange(int id, int* arr, int size)
+{
+	for (int i{}; i < size; i++)
+	{
+		if (id == arr[i])
+			return true;
+	}
+	return false;
+}

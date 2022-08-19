@@ -5,6 +5,7 @@
 #include"List.h"
 #include"Menu.h"
 
+
 using namespace std;
 
 class Protocol
@@ -23,11 +24,12 @@ public:
 	friend istream& operator>>(istream& in, Protocol* p);
 
 	//Гетери данних
-	string getNumTZ() { return numTZ; }
-	string getData() { return data; }
-	string getText() { return text; }
-	int getSum() { return sum; }
-	bool getPay() { return pay; }
+	int getId() const { return id; }
+	string getNumTZ() const { return numTZ; }
+	string getData() const { return data; }
+	string getText() const { return text; }
+	int getSum() const { return sum; }
+	bool getPay() const { return pay; }
 	//Сетери данних
 	void setNumTZ(string num) { numTZ = num; }
 	void setData(string d) { data = d; }
@@ -36,6 +38,14 @@ public:
 	void setPay(bool p) { pay = p; }
 	//Метод зберігання
 	void save();
+	//Метод зміни оплати
+	void changePay(int p)
+	{
+		if (p == 1)
+			pay = true;
+		else
+			pay = false;
+	}
 
 };
 
@@ -117,6 +127,7 @@ void BasePolice::addProtocol()
 void BasePolice::printAll()
 {
 	system("cls");
+
 	base.print();
 	system("pause");
 }
@@ -140,12 +151,12 @@ void BasePolice::printTZ()
 
 	system("pause");
 	
-
-
 }
 
 void BasePolice::printDiap()
 {
+
+
 
 }
 
@@ -231,6 +242,81 @@ void BasePolice::load()
 
 void BasePolice::setPay()
 {
+	string numberTZ;
+	int id = -1;
+	int chengeId{};
+	int pay = -1;
+
+	system("cls");
+	cout << "Змінити статус оплати правопорушення" << '\n';
+	cout << "---------------------" << '\n';
+	cout << "Введіть номер транспортного засобу" << '\n';
+	getline(cin, numberTZ);
+
+	List<Protocol*>* list = base.getValue(numberTZ);
+
+	if (list != nullptr)
+	{
+		cout << "\n\nВ базі знайдено наступні правопорушення за введеним номером: \n";
+		list->print();
+		
+		int count = list->length();
+
+		int* whiteID = new int[count];
+
+		for (size_t i{}; i < count; i++)
+		{
+			whiteID[i] = list->at(i)->getId();
+		}
+
+		cout << "Доступні ID: ";
+
+		for (size_t i{}; i < count; i++)
+			cout << whiteID[i] << ' ';
+
+		//Перевірка на допустимий діапазон вводимих айді
+		while (!isRange(id, whiteID, count))
+		{
+			cout << "\nВведіть id правопорушення для зміни його статусу\n";
+			cin >> id;
+
+			if(!isRange(id, whiteID, count))
+				cout << "Невірний id\n";
+
+		}
+
+		for (size_t i{}; i < count; i++)
+		{
+			if (id == list->at(i)->getId())
+				chengeId = i;
+		}
+
+		//Записуємо у вказівник адресу нашого порушення зі списку
+		Protocol* prot = list->at(chengeId);
+	
+		cout << prot;
+		
+		//Отримання від користувача коректних данних стосовно оплати протоколу
+		while (pay != 0 && pay != 1)
+		{
+			cout << "Для зміни статусу проплати протокола введиіть:\n";
+			cout << "1 - сплачено\n";
+			cout << "0 - не сплачено\n";
+			cin >> pay;
+		}
+		
+		prot->changePay(pay);
+
+		cout << "Протокол після змін:\n";
+		cout << prot;
+
+	}
+	else
+		cout << "\nЗа введеним номером правопорушень не знайдено\n";
+
+	system("pause");
+
+	
 }
 
 void BasePolice::menu()
