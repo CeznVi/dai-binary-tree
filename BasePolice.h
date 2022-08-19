@@ -53,8 +53,16 @@ int Protocol::count = 1;
 
 ostream& operator<<(ostream& out, const Protocol* p)
 {
-	out << p->id << " " << p->numTZ << " " << p->data
-		<< " " << p->text << " " << p->sum << " " << ((p->pay) ? "Сплачено" : "Несплачено") << endl;
+	out << left << "|" << setw(4) << p->id;
+	out << left << "| " << setw(9) << p->numTZ;
+	out << left << "| " << setw(11) << p->data;
+	out << left << "| " << setw(57) << p->text;
+	out << left << "| " << setw(13) << p->sum;
+	out << left << "| " << setw(14) << ((p->pay) ? "Сплачено" : "Несплачено");
+	out << left << "|" << "\n";
+
+	//out << p->id << " " << p->numTZ << " " << p->data
+	//	<< " " << p->text << " " << p->sum << " " << ((p->pay) ? "Сплачено" : "Несплачено") << endl;
 	return out;
 }
 
@@ -127,6 +135,7 @@ void BasePolice::addProtocol()
 void BasePolice::printAll()
 {
 	system("cls");
+	printTitle();
 	base.print();
 	system("pause");
 }
@@ -144,7 +153,10 @@ void BasePolice::printTZ()
 	List<Protocol*>* list = base.getValue(numberTZ);
 	
 	if (list != nullptr)
+	{
+		printTitle();
 		list->print();
+	}
 	else
 		cout << "\nЗа введеним номером правопорушень не знайдено\n";
 
@@ -173,6 +185,7 @@ void BasePolice::printDiap()
 		cout << "Вказано невірні діапазони транспортних засобів" << '\n';
 	
 	cout << "\n\nРезультат пошуку:\n";
+	printTitle();
 	base.printDiap(numberTZ1, numberTZ2);
 
 

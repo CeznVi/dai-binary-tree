@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include<iostream>
 #include<Windows.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -80,4 +81,17 @@ bool isRange(int id, int* arr, int size)
 			return true;
 	}
 	return false;
+}
+
+void printTitle()
+{
+	cout << string(120, char(61));
+	cout << left << "|" << setw(4) << "ID";
+	cout << left << "|" << setw(9) << " Номер ТЗ ";
+	cout << left << "|" << setw(12) << " Дата ";
+	cout << left << "|" << setw(58) << " Порушення ";
+	cout << left << "|" << setw(14) << " Сумма штрафу ";
+	cout << left << "|" << setw(15) << " Статус ";
+	cout << left << "|" << "\n";
+	cout << string(120, char(61));
 }
