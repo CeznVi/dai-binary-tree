@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <string>
-#include <fstream> // для збереження та завантаження файлів
+#include <fstream>
 #include"BTree.h"
 #include"List.h"
 #include"Menu.h"
@@ -34,7 +34,7 @@ public:
 	void setText(string t) { text = t; }
 	void setSum(int s) { sum = s; }
 	void setPay(bool p) { pay = p; }
-
+	//Метод зберігання
 	void save();
 
 };
@@ -50,6 +50,7 @@ ostream& operator<<(ostream& out, const Protocol* p)
 
 istream& operator>>(istream& in, Protocol* p)
 {
+	in.ignore();
 	cout << "Номер транспортного засобу : "; getline(in, p->numTZ);
 	cout << "Дата правопорушення : "; getline(in, p->data);
 	cout << "Правопорушення : "; getline(in, p->text);
@@ -128,14 +129,24 @@ void BasePolice::printTZ()
 	cout << "Роздрукувати данні за номером" << '\n';
 	cout << "---------------------" << '\n';
 	cout << "Введіть номер транспортного засобу" << '\n';
-	cin >> numberTZ;
-	//base.print(numberTZ);
+	getline(cin, numberTZ);
+
+	List<Protocol*>* list = base.getValue(numberTZ);
+	
+	if (list != nullptr)
+		list->print();
+	else
+		cout << "\nЗа введеним номером правопорушень не знайдено\n";
+
+	system("pause");
+	
 
 
 }
 
 void BasePolice::printDiap()
 {
+
 }
 
 void BasePolice::save()

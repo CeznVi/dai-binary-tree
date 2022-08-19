@@ -9,6 +9,7 @@ int main()
 
 
     BasePolice bp;
+
     bp.menu();
 
 
